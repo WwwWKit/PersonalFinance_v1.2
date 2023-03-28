@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="675dp">
 
         <FrameLayout
             android:id="@+id/containerSpinner"
@@ -23,17 +23,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:entries="@array/month"
-                android:padding="14dp"
-                />
+                android:padding="14dp" />
 
         </FrameLayout>
 
         <FrameLayout
-            android:layout_below="@+id/containerSpinner"
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:layout_below="@+id/containerSpinner">
 
 
             <LinearLayout
@@ -163,20 +161,55 @@
             </LinearLayout>
 
 
-
         </FrameLayout>
+
         <FrameLayout
+            android:id="@+id/containerRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/container"
-            >
+            android:layout_below="@+id/container">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
         </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/idincomesFAB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/orangePrimary"
+                android:contentDescription="@string/app_name"
+                android:text="incomes"
+                android:visibility="gone"
+                app:icon="@drawable/baseline_trending_down_24" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/idexpensesFAB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/orangePrimary"
+                android:contentDescription="@string/app_name"
+                android:text="Expenses"
+                android:visibility="gone"
+                app:icon="@drawable/baseline_trending_up_24" />
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 
@@ -205,27 +238,6 @@
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/idincomesFAB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
-        android:visibility="gone"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        app:icon="@drawable/add"
-        android:text="incomes"/>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/idexpensesFAB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
-        android:visibility="gone"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        app:icon="@drawable/add"
-        android:text="Expenses"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/idmainFAB"
@@ -233,6 +245,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
         android:src="@drawable/add"
+        android:backgroundTint="@color/orangePrimary"
         app:layout_anchor="@id/bottomAppBar"/>
 
 

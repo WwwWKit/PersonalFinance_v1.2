@@ -8,10 +8,11 @@
 
     <item
         android:id="@+id/placeholder"
+        android:enabled="false"
         android:title=""/>
 
     <item
-        android:id="@+id/account"
-        android:title="Account"
+        android:id="@+id/transaction"
+        android:title="Transaction"
         android:icon="@drawable/baseline_compare_arrows_24"/>
 </menu>

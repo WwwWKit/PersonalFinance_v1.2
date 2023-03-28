@@ -12,4 +12,11 @@
     <color name="red">#FB1100</color>
     <color name="green">#61BD04</color>
     <color name="deeper_green">#4F9805</color>
+    <color name="orangePrimary">#ff9f1c</color>
+    <color name="toscaSecondary">#2ec4b6</color>
+    <color name="orangeSecondary">#ffbf69</color>
+    <color name="toscaWhite">#cbf3f0</color>
+    <color name="greenIncome">#489E4C</color>
+    <color name="redExpense">#D11818</color>
+    <color name="toscaDarker">#03A5A3</color>
 </resources>

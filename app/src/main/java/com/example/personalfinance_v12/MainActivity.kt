@@ -1,11 +1,14 @@
 package com.example.personalfinance_v12
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +18,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var tagId : Array<Int>
     lateinit var category : Array<String>
 
-    lateinit var incomesFAB: FloatingActionButton
-    lateinit var expensesFAB: FloatingActionButton
+
+    lateinit var incomesFAB: ExtendedFloatingActionButton
+    lateinit var expensesFAB: ExtendedFloatingActionButton
     lateinit var mainFAB: FloatingActionButton
     var fabVisible = false
 
@@ -24,19 +28,69 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        // menu code
+//        // Initialize and assign variable
+//        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+//
+//        // Set Home selected
+//
+//        // Set Home selected
+//        bottomNavigationView.selectedItemId = R.id.dashboard
+//
+//        // Perform item selected listener
+//        bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.dashboard ->
+//                    return@OnNavigationItemSelectedListener true
+//
+//                R.id.transaction ->{
+//                    startActivity(Intent(this@MainActivity, Transaction::class.java))
+//                    // override default transition from page to page
+//                    overridePendingTransition(0, 0)
+//                    return@OnNavigationItemSelectedListener true
+//                }
+//            }
+//            false
+//        })
+
+
 //RECYLERVIEW
         tagId = arrayOf(
-            R.drawable.bill,
             R.drawable.food,
             R.drawable.petrol,
-            R.drawable.shop
+            R.drawable.entertainment,
+            R.drawable.education,
+            R.drawable.bill,
+            R.drawable.shop,
+            R.drawable.communication,
+            R.drawable.investment,
+            R.drawable.health,
+            R.drawable.more,
+
+            R.drawable.salary,
+            R.drawable.award,
+            R.drawable.gift,
+            R.drawable.money,
+            R.drawable.more
         )
 
         category = arrayOf(
-            "BILL",
             "FOOD",
-            "PETROL",
-            "SHOP"
+            "TRANSPORT",
+            "ENTERTAINMENT",
+            "EDUCATION",
+            "BILLS",
+            "SHOPPING",
+            "COMMUNICATION",
+            "INVESTMENT",
+            "HEALTH",
+            "OTHER EXPENSE",
+
+            "SALARY",
+            "AWARD",
+            "GIFT",
+            "INVESTMENT RETURN",
+            "OTHER INCOME"
         )
 
         recordRecyclerview =findViewById(R.id.recyclerView)
@@ -106,14 +160,17 @@ class MainActivity : AppCompatActivity() {
         // click listener for our home fab
         expensesFAB.setOnClickListener {
             // on below line we are displaying a toast message.
-            Toast.makeText(this@MainActivity, "Expenses clicked..", Toast.LENGTH_LONG).show()
-        }
+            val intent = Intent(this@MainActivity,InsertionActivity::class.java)
+            intent.putExtra("type",1)
+            startActivity(intent)        }
 
         // on below line we are adding on
         // click listener for settings fab
         incomesFAB.setOnClickListener {
             // on below line we are displaying a toast message
-            Toast.makeText(this@MainActivity, "Incomes clicked..", Toast.LENGTH_LONG).show()
+            val intent = Intent(this@MainActivity,InsertionActivity::class.java)
+            intent.putExtra("type",2)
+            startActivity(intent)
         }
 
     }
@@ -126,7 +183,7 @@ class MainActivity : AppCompatActivity() {
             recordArrayList.add(records)
     }
 
-        recordRecyclerview.adapter = MyAdapter(recordArrayList)
+        recordRecyclerview.adapter = rwAdapter(recordArrayList)
 }
 
 
