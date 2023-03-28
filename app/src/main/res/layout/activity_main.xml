@@ -205,8 +205,30 @@
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/idincomesFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:visibility="gone"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        app:icon="@drawable/add"
+        android:text="incomes"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/idexpensesFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:visibility="gone"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        app:icon="@drawable/add"
+        android:text="Expenses"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/idmainFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
