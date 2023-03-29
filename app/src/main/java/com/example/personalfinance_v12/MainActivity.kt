@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
 //        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 //
 //        // Set Home selected
-//
-//        // Set Home selected
 //        bottomNavigationView.selectedItemId = R.id.dashboard
 //
 //        // Perform item selected listener
