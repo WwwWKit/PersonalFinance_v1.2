@@ -1,4 +1,4 @@
-package com.example.personalfinance_v11
+package com.example.personalfinance_v12
 
 class User {
     // val is immutable, var is mutable

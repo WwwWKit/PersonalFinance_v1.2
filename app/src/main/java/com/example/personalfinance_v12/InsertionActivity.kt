@@ -62,7 +62,7 @@ class InsertionActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         val uid = user?.uid
         if (uid != null) {
-            dbRef = FirebaseDatabase.getInstance().getReference(uid) //initialize database with uid as the parent
+            dbRef = FirebaseDatabase.getInstance().reference //initialize database with uid as the parent
         }
         auth = Firebase.auth
         //----
@@ -189,7 +189,7 @@ class InsertionActivity : AppCompatActivity() {
             invertedDate = date * -1 //convert millis value to negative, so it can be sort as descending order
             val transaction = TransactionModel(transactionID, type, title, category, amount, date, note, invertedDate) //object of data class
 
-            dbRef.child(transactionID).setValue(transaction)
+            dbRef.child("transaction").child(transactionID).setValue(transaction)
                 .addOnCompleteListener {
                     Toast.makeText(this, "Data Inserted Successfully", Toast.LENGTH_LONG).show()
                     finish()

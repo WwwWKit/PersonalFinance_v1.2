@@ -1,6 +1,8 @@
 package com.example.personalfinance_v12
 
+import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,28 +13,31 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TransactionAdapter (private val transactionList: ArrayList<TransactionModel>) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>(){
+class TransactionAdapter (val context: Context, private val transactionList: ArrayList<TransactionModel>) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>(){
 
-    private lateinit var mListener: onItemClickListener
+//    private lateinit var mListener: onItemClickListener
 
-    interface onItemClickListener{
-        fun onItemClick(position: Int)
-    }
+//    interface onItemClickListener{
+//        fun onItemClick(position: Int)
+//    }
 
-    fun setOnItemClickListener(clickListener: onItemClickListener){
-        mListener = clickListener
-    }
+//    fun setOnItemClickListener(clickListener: onItemClickListener){
+//        mListener = clickListener
+//    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return ViewHolder(itemView, mListener)
+        val itemView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
+        return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentTransaction = transactionList[position]
+        Log.d("ADAP",currentTransaction.toString())
+        Log.d("ADAP","RAN")
+
         holder.tvTransactionTitle.text = currentTransaction.title // get the current title
 
         if (currentTransaction.type == 1){
@@ -59,18 +64,18 @@ class TransactionAdapter (private val transactionList: ArrayList<TransactionMode
         return transactionList.size
     }
 
-    class ViewHolder(itemView: View, clickListener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
-        val tvTransactionTitle: TextView = itemView.findViewById(R.id.tvTransactionTitle)
-        val tvTransactionAmount: TextView = itemView.findViewById(R.id.tvAmount)
-        val tvCategory: TextView = itemView.findViewById(R.id.tvCategory)
-        val tvDate: TextView = itemView.findViewById(R.id.tvDate)
-        val typeIcon: ImageView = itemView.findViewById(R.id.typeIcon)
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvTransactionTitle: TextView = itemView.findViewById(R.id.categoryTag)
+        val tvTransactionAmount: TextView = itemView.findViewById(R.id.amount)
+        val tvCategory: TextView = itemView.findViewById(R.id.title)
+        val tvDate: TextView = itemView.findViewById(R.id.date)
+        val typeIcon: ImageView = itemView.findViewById(R.id.tagImg)
 
-        init {
-            itemView.setOnClickListener {
-                clickListener.onItemClick(adapterPosition)
-            }
-        }
+//        init {
+//            itemView.setOnClickListener {
+//                clickListener.onItemClick(adapterPosition)
+//            }
+//        }
     }
 }
 

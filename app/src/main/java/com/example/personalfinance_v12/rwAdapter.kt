@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
 class rwAdapter(private val recordlist : ArrayList<History>) : RecyclerView.Adapter<rwAdapter.MyViewHolder>() {
@@ -38,7 +39,9 @@ class rwAdapter(private val recordlist : ArrayList<History>) : RecyclerView.Adap
 
 
         val tagImage : ImageView = itemView.findViewById(R.id.tagImg)
-        val tagText : TextView = itemView.findViewById(R.id.tagText)
+        val tagText : TextView = itemView.findViewById(R.id.categoryTag)
     }
 
 }
+
+

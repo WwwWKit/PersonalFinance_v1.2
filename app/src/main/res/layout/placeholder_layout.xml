@@ -46,6 +46,7 @@
                 />
 
             <TextView
+                android:text=""
                 android:id="@+id/tvTransactionTitle"
                 android:layout_width="100dp"
                 android:layout_height="15dp"
