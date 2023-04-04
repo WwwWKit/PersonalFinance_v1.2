@@ -62,7 +62,7 @@ class InsertionActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         val uid = user?.uid
         if (uid != null) {
-            dbRef = FirebaseDatabase.getInstance().reference //initialize database with uid as the parent
+            dbRef = FirebaseDatabase.getInstance().getReference(uid) //initialize database with uid as the parent
         }
         auth = Firebase.auth
         //----
@@ -202,8 +202,3 @@ class InsertionActivity : AppCompatActivity() {
     }
 }
 
-/* Catat Uang App,
-   A simple money tracker app.
-   Created By Ferry Dwianta P
-   First Created on 18/05/2022
-*/

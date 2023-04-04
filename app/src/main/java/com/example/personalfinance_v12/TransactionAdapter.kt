@@ -65,9 +65,9 @@ class TransactionAdapter (val context: Context, private val transactionList: Arr
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvTransactionTitle: TextView = itemView.findViewById(R.id.categoryTag)
+        val tvTransactionTitle: TextView = itemView.findViewById(R.id.title)
         val tvTransactionAmount: TextView = itemView.findViewById(R.id.amount)
-        val tvCategory: TextView = itemView.findViewById(R.id.title)
+        val tvCategory: TextView = itemView.findViewById(R.id.categoryTag)
         val tvDate: TextView = itemView.findViewById(R.id.date)
         val typeIcon: ImageView = itemView.findViewById(R.id.tagImg)
 
