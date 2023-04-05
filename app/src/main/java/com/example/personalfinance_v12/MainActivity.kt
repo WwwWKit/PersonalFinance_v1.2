@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
@@ -93,26 +94,26 @@ class MainActivity : AppCompatActivity() {
 
 //        // menu code
 //        // Initialize and assign variable
-//        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 //
 //        // Set Home selected
-//        bottomNavigationView.selectedItemId = R.id.dashboard
+        bottomNavigationView.selectedItemId = R.id.dashboard
 //
 //        // Perform item selected listener
-//        bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
-//            when (item.itemId) {
-//                R.id.dashboard ->
-//                    return@OnNavigationItemSelectedListener true
-//
-//                R.id.transaction ->{
-//                    startActivity(Intent(this@MainActivity, Transaction::class.java))
-//                    // override default transition from page to page
-//                    overridePendingTransition(0, 0)
-//                    return@OnNavigationItemSelectedListener true
-//                }
-//            }
-//            false
-//        })
+        bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.dashboard ->
+                    return@OnNavigationItemSelectedListener true
+
+                R.id.profile ->{
+                    startActivity(Intent(this@MainActivity, Profile::class.java))
+                    // override default transition from page to page
+                    overridePendingTransition(0, 0)
+                    return@OnNavigationItemSelectedListener true
+                }
+            }
+            false
+        })
 
 
 //RECYLERVIEW
