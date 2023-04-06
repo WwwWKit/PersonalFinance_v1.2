@@ -8,14 +8,19 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import org.w3c.dom.Text
 import java.util.*
 
 class InsertionActivity : AppCompatActivity() {
 
+    private lateinit var database: DatabaseReference
+    private lateinit var user: FirebaseUser
     private lateinit var etTitle: EditText
     private lateinit var etCategory: AutoCompleteTextView
     private lateinit var etAmount: EditText
@@ -62,7 +67,7 @@ class InsertionActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         val uid = user?.uid
         if (uid != null) {
-            dbRef = FirebaseDatabase.getInstance().getReference(uid) //initialize database with uid as the parent
+            dbRef = FirebaseDatabase.getInstance().reference //initialize database with uid as the parent
         }
         auth = Firebase.auth
         //----
@@ -170,11 +175,14 @@ class InsertionActivity : AppCompatActivity() {
     }
 
     private fun saveTransactionData() {
+        user = FirebaseAuth.getInstance().currentUser!!
+        database = Firebase.database.reference
         //getting values from form input user:
         val title = etTitle.text.toString()
         val category = etCategory.text.toString()
         val amountEt = etAmount.text.toString()
         val note = etNote.text.toString()
+        val uid = user.uid
 
         if(amountEt.isEmpty()){
             etAmount.error = "Please enter Amount"
@@ -187,18 +195,20 @@ class InsertionActivity : AppCompatActivity() {
 
             val transactionID = dbRef.push().key!!
             invertedDate = date * -1 //convert millis value to negative, so it can be sort as descending order
-            val transaction = TransactionModel(transactionID, type, title, category, amount, date, note, invertedDate) //object of data class
+            val transaction = TransactionModel(transactionID, type, title, category, amount, date, note, invertedDate, uid) //object of data class
 
-            dbRef.child("transaction").child(transactionID).setValue(transaction)
+            dbRef.child("transaction").child(transactionID).setValue(transaction )
+
+
                 .addOnCompleteListener {
-                    Toast.makeText(this, "Data Inserted Successfully", Toast.LENGTH_LONG).show()
-                    finish()
-                }.addOnFailureListener { err ->
-                    Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
-                }
+                Toast.makeText(this, "Data Inserted Successfully", Toast.LENGTH_LONG).show()
+                finish()
+            }.addOnFailureListener { err ->
+                Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
+            }
+
 
             isSubmitted = true
         }
     }
 }
-

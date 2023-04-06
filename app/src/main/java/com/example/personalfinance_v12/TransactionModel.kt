@@ -12,6 +12,7 @@ class TransactionModel {
     var date: Long? = null
     var note: String? = null
     var invertedDate: Long? = null
+    var uid: String? = null
 
     constructor(){
 
@@ -24,7 +25,8 @@ class TransactionModel {
         amount: Double?,
         date: Long?,
         note: String?,
-        invertedDate: Long?
+        invertedDate: Long?,
+        uid : String?
     ) {
         this.transactionID = transactionID
         this.type = type
@@ -34,6 +36,8 @@ class TransactionModel {
         this.date = date
         this.note = note
         this.invertedDate = invertedDate
+        this.uid = uid
+
     }
 
 }

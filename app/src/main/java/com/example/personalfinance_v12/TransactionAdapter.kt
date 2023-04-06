@@ -9,12 +9,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 class TransactionAdapter (val context: Context, private val transactionList: ArrayList<TransactionModel>) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>(){
-
+    private lateinit var database: DatabaseReference
+    private lateinit var user: FirebaseUser
 //    private lateinit var mListener: onItemClickListener
 
 //    interface onItemClickListener{
@@ -35,6 +41,11 @@ class TransactionAdapter (val context: Context, private val transactionList: Arr
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentTransaction = transactionList[position]
+        user = FirebaseAuth.getInstance().currentUser!!
+        database = Firebase.database.reference
+
+        val key = database.push().key
+
         Log.d("ADAP",currentTransaction.toString())
         Log.d("ADAP","RAN")
 
@@ -78,9 +89,3 @@ class TransactionAdapter (val context: Context, private val transactionList: Arr
 //        }
     }
 }
-
-/* Catat Uang App,
-   A simple money tracker app.
-   Created By Ferry Dwianta P
-   First Created on 18/05/2022
-*/
