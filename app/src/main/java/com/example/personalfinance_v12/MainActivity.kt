@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("LOG","RAN")
+
 
         setContentView(R.layout.activity_main)
         transactionList = ArrayList()
@@ -127,6 +129,7 @@ class MainActivity : AppCompatActivity() {
 
         fetchAmount()
         showAllTimeRecap()
+        Log.d("LOG","RAN")
     }
 
     private fun fetchAmount() { //show and calculate transaction recap
@@ -159,7 +162,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 adapter.notifyDataSetChanged()
 
-
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -177,13 +179,13 @@ class MainActivity : AppCompatActivity() {
         tvNetAmount.text = "${allTimeIncome - allTimeExpense}"
         tvAmountExpense.text = "$allTimeExpense"
         tvAmountIncome.text = "$allTimeIncome"
-        Log.d("AAAAA", tvNetAmount.toString())
+        Log.d("AAAAA","RAN")
+
     }
 
     override fun onResume() {
         super.onResume()
 
-        fetchAmount()
         showAllTimeRecap()
     }
 }
