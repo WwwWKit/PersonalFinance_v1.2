@@ -87,21 +87,24 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:fontFamily="@font/poppinsmedium"
             android:text="Have an existing account ?"
             android:textColor="#777777" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppinsmedium"
+            android:gravity="center"
             android:text="login now"
+            android:clickable="true"
             android:textColor="@color/purple_500"
             android:textStyle="bold"
-            android:background="@android:color/transparent"/>
+            android:layout_marginStart="10sp"
+            android:textAllCaps="true"/>
 
     </LinearLayout>
 </RelativeLayout>

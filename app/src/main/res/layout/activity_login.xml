@@ -92,15 +92,17 @@
                 android:text="Create a new Accout?"
                 android:textColor="#777777" />
 
-            <Button
+            <TextView
                 android:id="@+id/btn_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinsmedium"
                 android:text="Sign Up"
+                android:clickable="true"
                 android:textColor="@color/purple_500"
                 android:textStyle="bold"
-                android:background="@android:color/transparent"/>
+                android:layout_margin="10sp"
+                android:textAllCaps="true"/>
 
         </LinearLayout>
     </LinearLayout>

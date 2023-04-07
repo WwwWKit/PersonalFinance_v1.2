@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.personalfinance_v12.MainActivity
@@ -22,7 +23,7 @@ class Login : AppCompatActivity() {
     private lateinit var edtEmail: EditText
     private lateinit var edtPassword: EditText
     private lateinit var btnLogin: Button
-    private lateinit var btnSignUp: Button
+    private lateinit var btnSignUp: TextView
     private lateinit var btnCancle: Button
 
     private lateinit var mAuth: FirebaseAuth
@@ -52,40 +53,30 @@ class Login : AppCompatActivity() {
             val email = edtEmail.text.toString().trim()
             val password = edtPassword.text.toString()
 
-            if (!isPasswordValid(edtPassword.text!!)) {
+            if ((email.isEmpty()) and (password.isEmpty()== false)){
+                Toast.makeText(this, "Please enter your email to login.", Toast.LENGTH_LONG).show()
+            }else if ((password.isEmpty()) and (email.isEmpty()==false)){
+                Toast.makeText(this, "Please enter your password to login.", Toast.LENGTH_LONG).show()
+            }else if ((email.isEmpty()) and (password.isEmpty())){
+                Toast.makeText(this, "Please enter your email and password to login.", Toast.LENGTH_LONG).show()
+            }else {
+                login(email, password)
+            }
+
+            if ((password.length < 8)) {
                 edtPassword.error = getString(R.string.shr_error_password)
-            } else {
-                //Clear the error.
-                edtPassword.error = null
-            }
-
-            if (!isEmailValid(edtEmail.text!!)){
-                edtEmail.error = "Please enter your email"
-            } else {
-                edtEmail.error = null
-            }
-
-
-            login(email, password)
-        }
-
-        edtPassword.setOnClickListener {
-            if (isPasswordValid(edtPassword.text!!)) {
-                edtPassword.error = null
             }
         }
+
 
         btnCancle.setOnClickListener {
             finish()
         }
 
-    }
+        if(mAuth.currentUser!==null){
+            startActivity(Intent(this@Login,MainActivity::class.java))
+        }
 
-    private fun isPasswordValid(text: Editable?): Boolean {
-        return text != null && text.length >= 8
-    }
-    private fun isEmailValid(text: Editable?): Boolean {
-        return text != null
     }
 
 

@@ -3,8 +3,10 @@ package com.example.personalfinance_v12
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.personalfinance_v12.MainActivity
 import com.example.personalfinance_v12.R
@@ -19,7 +21,7 @@ class SignUp : AppCompatActivity() {
     private lateinit var edtPassword: EditText
     private lateinit var edtName: EditText
     private lateinit var btnSignUp: Button
-    private lateinit var btnLogin :Button
+    private lateinit var btnLogin :TextView
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDbRef: DatabaseReference
@@ -41,7 +43,15 @@ class SignUp : AppCompatActivity() {
             val email = edtEmail.text.toString()
             val password = edtPassword.text.toString()
 
-            signUp(name,email, password)
+
+            if ((name.isEmpty()) or (email.isEmpty()) or (password.isEmpty())) {
+                Toast.makeText(this, "Please fill up all fields to sign up.", Toast.LENGTH_LONG)
+                    .show()
+            }else if (password.length < 8){
+                edtPassword.error = getString(R.string.shr_error_password)
+            }else {
+                signUp(name, email, password)
+            }
         }
 
         btnLogin.setOnClickListener {
@@ -50,6 +60,7 @@ class SignUp : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 
     private fun signUp(name:String, email:String,password:String){
         // referenced from google firebase android password authentication documentation
