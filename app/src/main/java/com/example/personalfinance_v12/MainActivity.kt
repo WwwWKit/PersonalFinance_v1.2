@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Log.d("LOG","RAN")
 
-
         setContentView(R.layout.activity_main)
         transactionList = ArrayList()
         database = Firebase.database.reference
@@ -52,6 +51,9 @@ class MainActivity : AppCompatActivity() {
         recordRecyclerview = findViewById(R.id.recyclerView)
         recordRecyclerview.layoutManager = LinearLayoutManager(this)
         recordRecyclerview.adapter = adapter
+        tvNetAmount = findViewById(R.id.netAmount)
+        tvAmountExpense = findViewById(R.id.expenseAmount)
+        tvAmountIncome = findViewById(R.id.incomeAmount)
 
 
         // get data
@@ -127,12 +129,9 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        fetchAmount()
-        showAllTimeRecap()
-        Log.d("LOG","RAN")
-    }
 
-    private fun fetchAmount() { //show and calculate transaction recap
+        Log.d("LOG","fetchAmout RAN")
+
         var amountExpenseTemp = 0.0
         var amountIncomeTemp = 0.0
 
@@ -158,36 +157,74 @@ class MainActivity : AppCompatActivity() {
                     }
                     allTimeExpense = amountExpenseTemp
                     allTimeIncome = amountIncomeTemp
-
                 }
-                adapter.notifyDataSetChanged()
-
             }
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
-    }
-
-    private fun showAllTimeRecap() {
-        //---show recap after calculation---
-        tvNetAmount = findViewById(R.id.netAmount)
-        tvAmountExpense = findViewById(R.id.expenseAmount)
-        tvAmountIncome = findViewById(R.id.incomeAmount)
 
         tvNetAmount.text = "${allTimeIncome - allTimeExpense}"
         tvAmountExpense.text = "$allTimeExpense"
         tvAmountIncome.text = "$allTimeIncome"
-        Log.d("AAAAA","RAN")
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        showAllTimeRecap()
+        Log.d("LOG LAST LINE","RAN")
     }
 }
+
+
+//    private fun fetchAmount() { //show and calculate transaction recap
+//        var amountExpenseTemp = 0.0
+//        var amountIncomeTemp = 0.0
+//
+//        val transactionList: ArrayList<TransactionModel> = arrayListOf<TransactionModel>()
+//
+//        database.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                transactionList.clear()
+//                if (snapshot.exists()) {
+//                    for (transactionSnap in snapshot.children) {
+//                        val transactionData =
+//                            transactionSnap.getValue(TransactionModel::class.java) //reference data class
+//                        transactionList.add(transactionData!!)
+//                    }
+//
+//                    //take all amount expense and income :
+//                    for ((i) in transactionList.withIndex()) {
+//                        if (transactionList[i].type == 1) {
+//                            amountExpenseTemp += transactionList[i].amount!!
+//                        } else if (transactionList[i].type == 2) {
+//                            amountIncomeTemp += transactionList[i].amount!!
+//                        }
+//                    }
+//                    allTimeExpense = amountExpenseTemp
+//                    allTimeIncome = amountIncomeTemp
+//
+//                }
+//                adapter.notifyDataSetChanged()
+//
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                TODO("Not yet implemented")
+//            }
+//        })
+//    }
+
+//    private fun showAllTimeRecap() {
+//        //---show recap after calculation---
+//        tvNetAmount = findViewById(R.id.netAmount)
+//        tvAmountExpense = findViewById(R.id.expenseAmount)
+//        tvAmountIncome = findViewById(R.id.incomeAmount)
+//
+//        tvNetAmount.text = "${allTimeIncome - allTimeExpense}"
+//        tvAmountExpense.text = "$allTimeExpense"
+//        tvAmountIncome.text = "$allTimeIncome"
+//        Log.d("AAAAA","RAN")
+//
+//    }
+
+
 
 
