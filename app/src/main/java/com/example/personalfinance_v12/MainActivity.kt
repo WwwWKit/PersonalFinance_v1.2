@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.lang.reflect.Array.get
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,9 +30,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var mainFAB: FloatingActionButton
     private lateinit var transactionList: ArrayList<TransactionModel>
-    private lateinit var tvNetAmount : TextView
-    private lateinit var tvAmountExpense : TextView
-    private lateinit var tvAmountIncome : TextView
+    private lateinit var tvNetAmount: TextView
+    private lateinit var tvAmountExpense: TextView
+    private lateinit var tvAmountIncome: TextView
     private lateinit var user: FirebaseUser
 
 
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         transactionList = ArrayList()
         database = Firebase.database.reference
@@ -49,9 +52,6 @@ class MainActivity : AppCompatActivity() {
         recordRecyclerview.adapter = adapter
 
 
-        fetchAmount()
-        showAllTimeRecap()
-
         // get data
         val transactionListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -60,19 +60,21 @@ class MainActivity : AppCompatActivity() {
                 for (transactionSnapshot in snapshot.children) {
                     val transaction = transactionSnapshot.getValue(TransactionModel::class.java)
                     transactionList.add(transaction as TransactionModel)
-
                 }
+                //reverse listing, useless here
 
-            //reverse listing
-//                transactionList.reverse()
-//                Log.d("HERE", adapter.itemCount.toString())
+
+//                var sortedList = transactionList.sortWith(compareBy { it.date })
+//                for (obj in sortedList) {
+//                    transactionList.add(obj)
+//                }
+                transactionList.sortWith(compareBy({ it.date }))
+
+                transactionList.reverse()
 
 
                 adapter.notifyDataSetChanged()
-
-
             }
-
 
 
             override fun onCancelled(error: DatabaseError) {
@@ -86,10 +88,6 @@ class MainActivity : AppCompatActivity() {
 
         database.child("transaction").orderByChild("uid").equalTo(user.uid)
             .addValueEventListener(transactionListener)
-
-
-
-
 
 //        // menu code
 //        // Initialize and assign variable
@@ -115,7 +113,6 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-
 //FAB
         // initializing variables of floating
         // action button on below line.
@@ -127,25 +124,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
-    }
 
-    private fun showAllTimeRecap() {
-        //---show recap after calculation---
-        tvNetAmount = findViewById(R.id.netAmount)
-        tvAmountExpense = findViewById(R.id.expenseAmount)
-        tvAmountIncome = findViewById(R.id.incomeAmount)
-
-        tvNetAmount.text = "${allTimeIncome - allTimeExpense}"
-        tvAmountExpense.text = "$allTimeExpense"
-        tvAmountIncome.text = "$allTimeIncome"
-
+        fetchAmount()
+        showAllTimeRecap()
     }
 
     private fun fetchAmount() { //show and calculate transaction recap
         var amountExpenseTemp = 0.0
         var amountIncomeTemp = 0.0
 
-        val transactionList: ArrayList<TransactionModel> = ArrayList<TransactionModel>()
+        val transactionList: ArrayList<TransactionModel> = arrayListOf<TransactionModel>()
 
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -156,9 +144,6 @@ class MainActivity : AppCompatActivity() {
                             transactionSnap.getValue(TransactionModel::class.java) //reference data class
                         transactionList.add(transactionData!!)
                     }
-
-                    adapter.notifyDataSetChanged()
-
 
                     //take all amount expense and income :
                     for ((i) in transactionList.withIndex()) {
@@ -172,12 +157,34 @@ class MainActivity : AppCompatActivity() {
                     allTimeIncome = amountIncomeTemp
 
                 }
+                adapter.notifyDataSetChanged()
+
+
             }
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
+    }
+
+    private fun showAllTimeRecap() {
+        //---show recap after calculation---
+        tvNetAmount = findViewById(R.id.netAmount)
+        tvAmountExpense = findViewById(R.id.expenseAmount)
+        tvAmountIncome = findViewById(R.id.incomeAmount)
+
+        tvNetAmount.text = "${allTimeIncome - allTimeExpense}"
+        tvAmountExpense.text = "$allTimeExpense"
+        tvAmountIncome.text = "$allTimeIncome"
+        Log.d("AAAAA", tvNetAmount.toString())
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        fetchAmount()
+        showAllTimeRecap()
     }
 }
 
