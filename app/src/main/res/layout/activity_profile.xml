@@ -219,24 +219,6 @@ android:background="@color/white">
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <Button
-                    android:id="@+id/buttonDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/toscaSecondary"
-                    android:drawableLeft="@drawable/ic_calendar_svgrepo_com"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:insetTop="1dp"
-                    android:insetBottom="0dp"
-                    android:paddingRight="40dp"
-                    android:text="Select date"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    app:cornerRadius="20dp"
-                    app:elevation="0dp" />
 
             </RelativeLayout>
 
